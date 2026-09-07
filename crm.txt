@@ -1,0 +1,173 @@
+Act as a Senior Full-Stack Engineer. Build a high-performance, responsive In-App CRM and Real-Time Team Messaging System embedded directly inside our Next.js 14+ (App Router) website using TypeScript, Tailwind CSS, Shadcn UI, and Supabase (PostgreSQL + Auth + Realtime + RLS).
+
+================================================================================
+1. PUBLIC FOOTER AUTH & ROLE-BASED ACCESS CONTROL (RBAC)
+================================================================================
+- Footer Login Gateway:
+  - Add a subtle, secure "Internal Portal" / "Employee Login" link in the website's main footer section (`/components/layout/Footer.tsx`).
+  - Clicking the link triggers a modern Modal or routes to `/login` with clean email/password and magic-link authentication powered by Supabase Auth.
+  - On successful login, fetch the user's role from the `profiles` table and redirect dynamically:
+    - `ADMIN` → `/admin/dashboard`
+    - `AGENT` → `/pipeline`
+- Roles & RLS Enforcement:
+  - Roles: `ADMIN` and `AGENT`.
+  - Row-Level Security (RLS) policies MUST strictly enforce data boundaries at the database layer:
+    - `ADMIN`: Full read, write, update, and delete access across all leads, profiles, analytics, and chat rooms.
+    - `AGENT`: Can only access leads assigned to them (`assigned_agent_id = auth.uid()`) and chat rooms where they are explicit members.
+
+================================================================================
+2. DATABASE MIGRATIONS & SCHEMA SPECIFICATION
+================================================================================
+Generate SQL migration files for Supabase (`/supabase/migrations/001_crm_chat_init.sql`):
+
+-- Enums
+CREATE TYPE app_role AS ENUM ('ADMIN', 'AGENT');
+CREATE TYPE lead_status AS ENUM ('NEW', 'CONTACTED', 'QUALIFIED', 'PROPOSAL', 'WON', 'LOST');
+CREATE TYPE room_type AS ENUM ('DIRECT', 'GROUP');
+
+-- Profiles (Linked to Supabase Auth)
+CREATE TABLE profiles (
+  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  full_name TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL,
+  role app_role DEFAULT 'AGENT',
+  is_active BOOLEAN DEFAULT true,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Leads Table
+CREATE TABLE leads (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  first_name TEXT NOT NULL,
+  last_name TEXT,
+  email TEXT,
+  phone TEXT,
+  company TEXT,
+  status lead_status DEFAULT 'NEW',
+  estimated_value DECIMAL(12, 2) DEFAULT 0.00,
+  assigned_agent_id UUID REFERENCES profiles(id) ON DELETE SET NULL,
+  source TEXT DEFAULT 'Manual Input',
+  created_by UUID REFERENCES profiles(id) ON DELETE SET NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Lead Activities & Audit Log
+CREATE TABLE lead_activities (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  lead_id UUID REFERENCES leads(id) ON DELETE CASCADE,
+  performed_by UUID REFERENCES profiles(id) ON DELETE SET NULL,
+  activity_type TEXT NOT NULL, -- 'NOTE', 'STATUS_CHANGE', 'CALL', 'ALLOCATION'
+  content TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Real-Time Chat Rooms & Groups
+CREATE TABLE chat_rooms (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT, -- Null for DIRECT, required for GROUP
+  type room_type DEFAULT 'GROUP',
+  created_by UUID REFERENCES profiles(id) ON DELETE SET NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Chat Members Junction Table
+CREATE TABLE chat_members (
+  room_id UUID REFERENCES chat_rooms(id) ON DELETE CASCADE,
+  user_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
+  joined_at TIMESTAMPTZ DEFAULT NOW(),
+  PRIMARY KEY (room_id, user_id)
+);
+
+-- Chat Messages Table
+CREATE TABLE chat_messages (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  room_id UUID REFERENCES chat_rooms(id) ON DELETE CASCADE,
+  sender_id UUID REFERENCES profiles(id) ON DELETE SET NULL,
+  content TEXT NOT NULL,
+  attached_lead_id UUID REFERENCES leads(id) ON DELETE SET NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Enable Supabase Realtime Publication
+ALTER PUBLICATION supabase_realtime ADD TABLE chat_messages;
+ALTER PUBLICATION supabase_realtime ADD TABLE leads;
+
+================================================================================
+3. CSV LEAD IMPORTER & ALLOCATION ENGINE (ADMIN API & FRONTEND)
+================================================================================
+- Build a CSV/Excel Parser component using `papaparse` inside the Admin UI (`/app/admin/importer/page.tsx`).
+- Column Mapping Modal: Interactively map CSV columns to `first_name`, `last_name`, `email`, `phone`, `company`, `estimated_value`.
+- Pre-Import Validation: Highlight duplicate emails or invalid records before execution.
+- Allocation Logic (Next.js API Route `/api/admin/leads/import`):
+  - Mode 1: Automated Round-Robin: Sequentially cycle through all `profiles` where `role = 'AGENT'` and `is_active = true`.
+  - Mode 2: Manual Selection: Allocate the full imported batch to a single selected agent ID.
+- Automated Bot Dispatch: Upon successful batch insertion, trigger an automated system message into the general `#sales` chat room announcing: *"Admin uploaded [N] new leads via CSV allocation."*
+
+================================================================================
+4. ADMIN DASHBOARD WORKSPACE (`/app/admin/...`)
+================================================================================
+- Master Data Grid (`/app/admin/leads`): TanStack Table implementation featuring server-side pagination, multi-column search, status filters, and a bulk re-allocation action bar.
+- Team Management (`/app/admin/team`): Toggle agent status (`is_active`), reassign lead balances, and track capacity.
+- Executive Analytics Engine (`/app/admin/analytics` using Recharts/Tremor):
+  - KPI Summary Cards: Total Leads, Total Pipeline Value, Total Won Revenue, Average Win Velocity.
+  - Conversion Funnel Visualizer: Drop-off rates across `NEW` → `CONTACTED` → `QUALIFIED` → `PROPOSAL` → `WON`.
+  - Agent Distribution Chart: Assigned leads vs. won leads per team member.
+  - Source Attribution Chart: Revenue generated by source (CSV Upload, Web Form, Outbound).
+
+================================================================================
+5. AGENT WORKSPACE & KANBAN PIPELINE (`/app/pipeline/...`)
+================================================================================
+- Drag-and-Drop Pipeline: Kanban board powered by `@hello-pangea/dnd` or `dnd-kit` organized by stage columns (`NEW`, `CONTACTED`, `QUALIFIED`, `PROPOSAL`, `WON`, `LOST`).
+- Optimistic State Updates: Moving a lead card updates UI instantly and asynchronously posts status updates to Supabase, logging an activity entry automatically.
+- Lead Slide-Over Drawer:
+  - Quick Contact Triggers: One-click `tel:` links, `mailto:` triggers, and WhatsApp web URL generators.
+  - Activity Feed & Note Logger: Chronological view of activity logs with an instant form to append call notes or logs.
+- Agent KPI Progress Gauge: Individual target tracker displaying monthly targets vs. actual closures.
+
+================================================================================
+6. REAL-TIME TEAM CHAT & GROUP MESSAGING (`/app/messages` & FAB Drawer)
+================================================================================
+- Engine & State:
+  - Supabase Realtime WebSocket subscriptions listening to `postgres_changes` on `chat_messages`.
+  - Supabase Presence tracking to display green "Online" badges next to active agents.
+- Chat Interfaces:
+  - Render as both a full dedicated route (`/app/messages`) and a persistent collapsible slide-over drawer on the main CRM dashboard layout.
+  - Channels Panel: List active DMs and Group Channels with unread count pills.
+  - "Create Group" Modal: Admins and Agents can set a group name and select team members to initialize a new `chat_room`.
+  - Message Window: Auto-scroll on new message, sender identification, timestamps, and rich preview cards for attached leads.
+- Lead Tagging Engine (`@lead` picker):
+  - Allow users to search and attach a lead directly to a chat message.
+  - Render attached leads as interactive cards inside the chat stream; clicking the card opens that lead's Slide-Over Drawer instantly.
+- System Automation Trigger:
+  - Automatically dispatch system message when an agent updates a lead to status `WON`: *"🎉 [Agent Name] just closed deal with [Company Name] for $[Value]!"*
+
+================================================================================
+7. CODE STRUCTURE & DELIVERABLE REQUIREMENTS
+================================================================================
+Organize code cleanly inside the Next.js App Router structure:
+├── app/
+│   ├── (auth)/
+│   │   └── login/page.tsx
+│   ├── (crm)/
+│   │   ├── admin/
+│   │   │   ├── analytics/page.tsx
+│   │   │   ├── leads/page.tsx
+│   │   │   └── team/page.tsx
+│   │   ├── messages/page.tsx
+│   │   └── pipeline/page.tsx
+│   ├── api/
+│   │   ├── admin/leads/import/route.ts
+│   │   └── chat/route.ts
+│   └── layout.tsx
+├── components/
+│   ├── chat/ (ChatDrawer.tsx, CreateGroupModal.tsx, LeadCardPreview.tsx)
+│   ├── crm/ (KanbanBoard.tsx, LeadDrawer.tsx, CsvImporterModal.tsx)
+│   ├── layout/ (Footer.tsx with login link, Sidebar.tsx, TopNavbar.tsx)
+│   └── ui/ (Shadcn UI components)
+├── lib/
+│   ├── supabase/ (client.ts, server.ts, middleware.ts)
+│   └── utils/ (roundRobin.ts, csvParser.ts)
+└── supabase/
+    └── migrations/001_crm_chat_init.sql
+
+Provide robust TypeScript interfaces, complete component code with Lucide icons, full Supabase RLS SQL statements, and error handling for all API routes.

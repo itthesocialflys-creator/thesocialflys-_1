@@ -1,0 +1,50 @@
+=================================================================
+DESIGN SYSTEM TOKENS — ltx.io
+=================================================================
+
+WHAT I CAN CONFIRM WITHOUT DOM/CSS ACCESS
+-----------------------------------------------
+Hosting platform: Asset URLs (cdn.prod.website-files.com) confirm
+the site is built on Webflow. This is useful context for a coding
+agent (Webflow sites typically ship a fairly standard class-naming
+convention and a single global stylesheet), but it does not tell
+us the actual token values.
+
+Image format convention: hero/feature imagery uses .avif; icons
+use .svg — consistent with a modern, performance-conscious asset
+pipeline, but this is a format note, not a color/type token.
+
+Everything else below requires reading the live stylesheet
+(:root CSS custom properties are the most likely location for
+these tokens on a Webflow site) or using a browser color-picker /
+computed-styles panel. I have not guessed at hex values.
+
+1. COLOR PALETTE                    UNAVAILABLE
+   (primary / secondary / neutral / surface / border / semantic —
+   e.g. success/error/warning — hex/rgb/hsl values)
+
+2. TYPOGRAPHY SYSTEM                UNAVAILABLE
+   (display/body/mono font-family stacks, type scale ratio,
+   line-height tokens, letter-spacing tokens)
+
+3. UI ELEMENTS                       UNAVAILABLE
+   (border-radius scale, box-shadow/elevation levels, z-index scale)
+
+
+RECOMMENDED NEXT STEP (fastest path to real tokens)
+--------------------------------------------------------
+Since this is Webflow-hosted:
+  1. View page source or devtools -> Sources -> find the main
+     compiled CSS file (usually under a path like
+     /css/<site-slug>.webflow.<hash>.css or similar)
+  2. Search that file for a `:root { ... }` block — Webflow's
+     "Variables" panel (if the designer used it) exports directly
+     as CSS custom properties there, which gives you the entire
+     color/type/spacing token set in one place.
+  3. If no :root block exists, fall back to inspecting computed
+     styles on a handful of representative elements (H1, body text,
+     a primary button, a card) and record color/font-family/
+     font-size/line-height for each.
+
+Paste that CSS (or even just the :root block) here and I will
+convert it directly into this token file with full fidelity.

@@ -1,0 +1,95 @@
+=================================================================
+FOOTER — ltx.io
+=================================================================
+
+1. INFORMATION ARCHITECTURE (confirmed link columns)
+---------------------------------------------------------
+Column: Research
+  - LTX-2.5                          -> /model/ltx-2-5
+  - LTX-2.3                          -> /model/ltx-2-3
+  - LTX-2                            -> /model/ltx-2
+  - LTXV                             -> /model/ltxv
+  - Developer Program                -> /model/ltx-developer-program
+  - Academic Programs                -> /model/grants
+  - Physical AI Developer Program    -> /model/physical-ai-developer-program
+
+Column: Interfaces
+  - Licensing        -> /model/license
+  - LTX API          -> /model/api
+  - LTX Studio       -> /studio
+  - LTX Desktop      -> /ltx-desktop
+  - LTX Trainer      -> /model/ltx-trainer
+  - LTX Playground   -> https://console.ltx.video/playground/
+
+Column: Open Source
+  - Open Source     -> /model/open-source
+  - HuggingFace     -> https://huggingface.co/Lightricks/LTX-2.5
+  - GitHub          -> https://github.com/Lightricks/LTX-2
+  - Documentation   -> https://docs.ltx.video/open-source-model/getting-started/overview
+  - Community Library -> /ltx-community
+  - Discord         -> https://discord.com/invite/ltxplatform
+  - X (Twitter)     -> https://x.com/ltx_io
+
+Column: Resources
+  - Blog                  -> /blog
+  - Tutorials              -> /blog-category/tutorials
+  - Case Studies           -> /case-studies
+  - Models Overview        -> /model
+  - Release Notes          -> /release-notes
+  - Documentation          -> https://docs.ltx.video/welcome
+  - API Status             -> https://status.ltx.video/
+  - Glossary               -> /glossary
+  - LLM Info               -> /llm-info
+  - LTX Model Alternatives -> /model/alternatives
+
+Column: Pricing
+  - Licensing          -> /model/license
+  - API Pricing         -> https://docs.ltx.io/pricing
+  - LTX Studio Pricing  -> /studio/pricing
+
+Column: Company
+  - About     -> /about-us
+  - Careers   -> /careers
+  - Newsroom  -> /newsroom
+  - Help Center -> https://help.ltx.io//hc/en-us
+    (note: double slash in the extracted URL — likely a source
+    markup artifact, verify before using)
+
+Legal row (bottom-most, separate from the columns above):
+  - Privacy Policy    -> https://static.lightricks.com/legal/Privacy%20Policy%20-%20LTX%20Platform.pdf
+  - Cookie Preferences -> "#" (JS-triggered, likely opens a cookie
+    consent manager modal rather than navigating)
+  - Trust Center       -> https://trust.lightricks.com/
+  - Accessibility      -> https://static.lightricks.com/legal/CPRA%20Notice%20-%20UPLOADED.pdf
+    (NOTE: this link is labelled "Accessibility" but points to a
+    CPRA/CCPA notice PDF — same file as the "CCPA Privacy notice"
+    link below. This looks like a mislabeled/duplicated link on
+    the live site, not an extraction error on my part.)
+  - CCPA Privacy notice -> https://static.lightricks.com/legal/CPRA%20Notice%20-%20UPLOADED.pdf
+
+
+2. BRANDING & LEGAL
+-----------------------
+Footer logo: LTX wordmark SVG
+  asset: cdn.prod.website-files.com/68872d15af29880764eac4aa/69445617becf4761ee3d478b_ltx-logo.svg
+Tagline directly under logo:
+  "Open foundation models for video, audio, and world simulation"
+Footer CTA: "Try LTX Now" -> https://console.ltx.video/playground/
+Social links (icon-only, inferred from href list order):
+  Discord: https://discord.com/invite/ltxplatform
+  GitHub: https://github.com/Lightricks/LTX-2
+  HuggingFace: https://huggingface.co/Lightricks/LTX-2.5
+  X: https://x.com/ltx_io
+Copyright line: "© 2026 All rights reserved"
+
+
+3. INTERACTIVE ELEMENTS
+---------------------------
+Newsletter signup form:      NOT PRESENT in extracted content —
+  no email input or "Subscribe" copy appears in the footer. If one
+  exists, it may render client-side only (JS-injected) and wasn't
+  captured by a static text extraction.
+Country/language toggle:      NOT PRESENT / not detected.
+Theme switcher (light/dark):  NOT PRESENT / not detected. The
+  presence of a "Cookie Preferences" trigger ("#") is the only
+  confirmed interactive footer control beyond standard links.

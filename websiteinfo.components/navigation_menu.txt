@@ -1,0 +1,138 @@
+=================================================================
+NAVIGATION MENU — ltx.io
+=================================================================
+
+1. NAVIGATION HIERARCHY (verified from live link structure)
+--------------------------------------------------------------
+Top-level nav groups and their dropdown contents:
+
+Research
+  - Research Lab            -> /research
+  - Publications             -> /research#publications
+  - Built on LTX             -> /research#built-on-ltx
+  - Conversations            -> /research#conversations
+  - Developer Program        -> /model/ltx-developer-program
+  - Academic Programs        -> /model/grants
+  - Physical AI Developer Program -> /model/physical-ai-developer-program
+
+Models (nested sub-groups: "explore" / "Access" / "Tools")
+  explore
+    - LTX-2.5  -> /model/ltx-2-5
+    - LTX-2.3  -> /model/ltx-2-3
+    - LTX-2    -> /model/ltx-2
+    - LTXV     -> /model/ltxv
+  Access
+    - API         -> /model/api
+    - LTX Desktop -> /ltx-desktop
+  Tools
+    - LTX Trainer    -> /model/ltx-trainer
+    - LTX Playground -> https://console.ltx.video/playground/
+    - LTX Explore    -> https://app.ltx.io/
+
+Open Source (nested sub-groups: "Explore" / "Community")
+  Explore
+    - Licensing     -> /model/license
+    - Open Source   -> /model/open-source
+    - Documentation -> https://docs.ltx.video/open-source-model/getting-started/overview
+  Community
+    - Community Library -> /ltx-community
+    - HuggingFace       -> https://huggingface.co/Lightricks/LTX-2.5
+    - GitHub            -> https://github.com/Lightricks/LTX-2
+    - Discord           -> https://discord.com/invite/ltxplatform
+
+Resources (nested sub-groups: "Learn" / "Reference")
+  Learn
+    - Blog          -> /blog
+    - Tutorials     -> /blog-category/tutorials
+    - Case Studies  -> /case-studies
+  Reference
+    - Documentation      -> https://docs.ltx.video/open-source-model/getting-started/overview
+    - Release Notes      -> /release-notes
+    - Model Capabilities  -> /model/video-generation-model
+
+Enterprise (nested sub-groups: "Pricing" / "By Use Case" / "By Industry")
+  Pricing
+    - API Pricing      -> https://docs.ltx.io/pricing
+    - LTX Studio Pricing -> /studio/pricing
+    - Talk to Sales     -> /forms/ltx-contact-sales?kpi=licensing&placement=topmenu
+  By Use Case
+    - Image to Video -> /model/capabilities/image-to-video-model
+    - World Model    -> /model/capabilities/world-model
+    - LoRA Training  -> /model/capabilities/lora-training
+    - HDR Video      -> /model/capabilities/ai-video-to-hdr
+    - Outpainting    -> /model/capabilities/video-outpainting
+    - See All        -> /model/capabilities-overview
+  By Industry
+    - Robotics & Physical AI     -> /solution/robotics-physical-ai
+    - Real-time AI                -> /solution/realtime-ai
+    - Media & Entertainment       -> /solution/media-entertainment
+    - Marketing & Advertising     -> /solution/marketing-advertising
+    - Gaming & Interactive        -> /solution/gaming-interactive
+    - VFX Production              -> /solution/vfx
+
+Company (flat, no sub-groups)
+  - About            -> /about-us
+  - Newsroom & Press -> /newsroom
+  - Careers          -> /careers
+
+Utility actions (persistent, right-aligned, outside dropdown system):
+  - "Talk to Sales" -> /forms/ltx-contact-sales?kpi=licensing&placement=topmenu
+  - "Try LTX"        -> https://console.ltx.video/playground/
+  - "Get API Key"    -> https://console.ltx.video
+
+Logo (home link): "/" appears twice in extracted DOM order, which
+typically indicates a wrapping <a> around both a mobile-only and
+desktop-only logo mark (common Webflow pattern) — could not confirm
+without raw markup.
+
+Announcement bar (above nav, likely `position: sticky` or part of
+nav bar itself):
+  "LTX 2.5 is Here・See What's Changed" -> /model/ltx-2-5
+
+
+2. STICKY/FIXED BEHAVIOR
+---------------------------
+Position property (sticky/fixed/static):        UNAVAILABLE
+Scroll-triggered background transition
+  (blur/glassmorphism/opacity/color shift):      UNAVAILABLE
+Height shift on scroll:                          UNAVAILABLE
+z-index / stacking context:                      UNAVAILABLE
+
+These require observing the live page while scrolling (computed
+style diffing) or reading the site's JS/CSS bundle directly —
+not obtainable from a static text/reader extraction.
+
+
+3. MOBILE UX
+--------------
+Hamburger/drawer presence:      Not directly confirmable from text
+  extraction (no distinct "menu" icon or aria-label text surfaced),
+  though the multiple nested dropdown groups strongly imply a
+  collapsible mobile nav exists.
+Breakpoint values (px):          UNAVAILABLE
+Drawer transition mechanism
+  (slide/fade/height animation): UNAVAILABLE
+Interactive/focus states:        UNAVAILABLE
+
+
+4. UX FLOW / INFORMATION ARCHITECTURE MAP
+---------------------------------------------
+Top-level routing, inferred purely from the confirmed link graph:
+
+  Home (/)
+  ├─ Research  ─ (lab, publications, external builders, programs)
+  ├─ Models    ─ (version pages: 2.5 / 2.3 / 2 / LTXV; access: API,
+  │              Desktop; tools: Trainer, Playground [external],
+  │              Explore [external])
+  ├─ Open Source ─ (licensing, OSS overview, docs [external],
+  │                community library, HuggingFace/GitHub/Discord
+  │                [external])
+  ├─ Resources ─ (blog, tutorials, case studies, docs, release
+  │              notes, capabilities overview)
+  ├─ Enterprise ─ (pricing docs, studio pricing, sales form,
+  │               use-case pages, industry solution pages)
+  └─ Company   ─ (about, newsroom, careers)
+
+  Primary conversion paths funnel outward to three external
+  properties: console.ltx.video (playground/API), app.ltx.io
+  (Explore), and huggingface.co (open weights download).

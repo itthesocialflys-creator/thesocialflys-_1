@@ -1,0 +1,45 @@
+=================================================================
+SHADERS / WEBGL / CANVAS FX — ltx.io
+=================================================================
+
+WHAT I CAN ACTUALLY CONFIRM
+-------------------------------
+Nothing. A text/reader-mode extraction of a page cannot detect
+<canvas> elements, WebGL contexts, shader source (GLSL), uniforms,
+or particle system parameters — none of that renders as extractable
+text content, since by definition it's pixels painted by a script,
+not markup or copy.
+
+I did NOT find any explicit evidence in the extracted content (alt
+text, image filenames, etc.) that strongly implies a bespoke WebGL
+shader background is present — the hero and feature "background"
+elements found so far are conventional <img>/.avif assets and what
+appear to be inline videos (see hero.txt and features.txt), not
+canvas-driven visuals. That said, absence of evidence in a text
+extraction is not evidence of absence — plenty of modern marketing
+sites layer a WebGL canvas as a background behind or between
+content sections, which would be invisible to this extraction
+method entirely.
+
+1. VISUAL BACKGROUND FX           UNAVAILABLE / UNCONFIRMED
+   (canvas params, shader code/uniforms, noise overlays, particle
+   specs, gradient mesh)
+2. FALLBACKS                       UNAVAILABLE / UNCONFIRMED
+3. PERFORMANCE (frame rate,
+   canvas sizing, z-index)         UNAVAILABLE / UNCONFIRMED
+
+RECOMMENDED NEXT STEP
+------------------------
+This is the section most worth verifying in a real browser:
+  1. Open devtools -> Elements -> Ctrl/Cmd+F for "canvas" or "webgl"
+  2. If a <canvas> exists, right-click it -> Inspect, note its
+     dimensions/z-index/position in the computed styles panel
+  3. Check the Network tab for any .glsl, .frag, .vert files, or
+     inline shader strings inside a bundled JS file (search for
+     "gl_FragColor", "uniform", "precision mediump float" as
+     signature GLSL strings)
+  4. Throttle CPU in devtools Performance tab to see if a lower-
+     power fallback (static image swap) kicks in
+
+Paste the results here and I'll turn them into real specs instead
+of leaving this file as a gap.

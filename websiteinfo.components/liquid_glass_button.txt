@@ -1,0 +1,58 @@
+=================================================================
+"LIQUID GLASS" BUTTON COMPONENT — ltx.io
+=================================================================
+
+IMPORTANT CAVEAT
+------------------
+The text extraction of the page confirms the EXISTENCE of buttons
+and their copy/link targets (see below), but nothing in the
+extracted content confirms that these buttons use a glassmorphism
+("liquid glass") treatment specifically. That's a visual style
+that can only be confirmed by looking at the rendered page or its
+CSS. I have not fabricated a glass effect that may not exist.
+
+Confirmed button instances (copy + target only):
+  - "Download Open Weights" -> https://huggingface.co/Lightricks/LTX-2.5
+  - "Try Now"                -> https://app.ltx.io/
+  - "Talk to Sales"          -> /forms/ltx-contact-sales?...
+  - "Try LTX"                -> https://console.ltx.video/playground/
+  - "Get API Key"            -> https://console.ltx.video
+  - "Watch the Full Video"   -> "#" (appears to be a JS-triggered
+    modal/lightbox rather than a real anchor — the href is a bare
+    "#", consistent with a click handler opening a video player)
+  - "Make it Yours"          -> /model/license
+
+1. VISUAL STYLING           UNAVAILABLE
+   (backdrop-filter blur value, border gradient, background
+   transparency/alpha, refraction/specular layers, drop shadow
+   offsets and blur radius)
+
+2. COMPONENT STATES         UNAVAILABLE
+   (:hover, :active, :focus, :disabled, loading spinner/skeleton)
+
+3. MICRO-INTERACTIONS       UNAVAILABLE
+   (transition-timing-function/easing curve, transition-duration,
+   cursor style, any SVG icon translate/offset on hover)
+
+4. ACCESSIBILITY (a11y)     UNAVAILABLE
+   (role attributes, tabindex, computed contrast ratio of button
+   text vs. background)
+
+WHY THIS IS EMPTY
+--------------------
+All four categories require either (a) the site's compiled CSS/JS,
+or (b) live browser inspection (computed styles, contrast checker
+tools, DOM attribute inspection). My available tools in this
+session only return a reader-mode text extraction of the page and
+cannot reach ltx.io's asset servers directly (network sandboxed).
+
+RECOMMENDED NEXT STEP
+------------------------
+If you have access to Claude for Chrome, or can open devtools on
+the live page yourself, capture:
+  - computed styles on one of the CTA buttons (Elements > Computed)
+  - the `backdrop-filter`, `background`, `border-image`/`border`,
+    `box-shadow`, `transition` properties specifically
+  - a contrast-ratio reading (Chrome's built-in a11y panel)
+...and paste that output here — I can then structure it into this
+file accurately instead of guessing.

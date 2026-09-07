@@ -1,0 +1,1 @@
+export function BouncingOrbit({ className = "" }: { className?: string }) { return <div className={`orbit-stage ${className}`} aria-hidden="true"><div className="ball"><div className="inner"><span className="line" /><span className="line line--two" /><span className="oval" /><span className="oval oval--two" /></div></div><div className="shadow" /></div>; }

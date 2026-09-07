@@ -1,0 +1,93 @@
+=================================================================
+FEATURES SECTION — ltx.io ("New in LTX-2.5")
+=================================================================
+
+1. COPY & STRUCTURE (verbatim, confirmed)
+--------------------------------------------
+Eyebrow: "LTX2.5 Model"
+H2: "New in LTX-2.5"
+Subtext: "New features, plus meaningful upgrades to what already worked."
+Section CTA: "Try LTX-2.5 Now" -> https://app.ltx.io/
+
+Numbered feature list (01–06), each with a title + one-sentence
+description + inline demo media:
+
+  01. Diffusion Fidelity Rendering
+      "Render video a new way, building every scene from adaptive
+      high-fidelity keyframes for pixel quality that holds up on a
+      cinema screen."
+      Demo media alt text: "Giant fluffy white yak with huge curved
+      horns in a mountain valley with people and smaller yaks nearby."
+      Asset: 6a7b19f105c81804b0f59361_DFR_1_frame.avif
+
+  02. Cleaner Motion
+      "Generate smoother, more natural motion with fewer artifacts."
+      Demo media alt text: "LTX-2.3 Rebuilt Latent Space"
+      Asset: 6a7a33adf1c340c52bc8d0da_LX-Release25-Capabilities-01-Motion_frame.avif
+
+  03. Native Multishot
+      "Create connected shots that hold character, environment,
+      lighting, and voice."
+      Demo media alt text: "LTX-2.3 Better Prompt Adherence"
+      Asset: 6a7a22723c3eacc0459ead1c_LX-Release25-Capabilities-02-Multishot_frame.avif
+
+  04. Precise Control
+      "Follow complex prompts, generate the right duration, and
+      edit footage precisely."
+      Demo media alt text: "LTX-2.3 Better Image To Video"
+      Asset: 6a7a2272f8c58b0aa0c6f52f_LX-Release25-Capabilities-03-PromptAdherence_frame.avif
+
+  05. Native 4K HDR
+      "Generate native 4K HDR footage built for professional RAW
+      and color pipelines."
+      Demo media alt text: "LTX-2.3 Better Image To Video"
+      Asset: 6a8bf9dc7eab4bd21b6b9d95_HDR-New_frame.avif
+
+  06. More Efficient Generation
+      "Get near-full-model quality with fewer retries and less compute."
+      Demo media alt text: "LTX-2.3 Better Image To Video"
+      Asset: 6a7a2272da766fb28cddb3e8_LX-Release25-Capabilities-07-BetterResults_frame.avif
+
+Each card also carries a pair of small icon overlays (mute/play
+toggle icons), suggesting each demo is a hoverable/clickable
+inline video rather than a static image:
+  mute-icon-1.svg, mute-icon.svg, Play-icon.svg, mute-icon-2.svg
+
+
+2. COMPONENT SYSTEM (bento/grid layout)
+-------------------------------------------
+Column count / grid-template-columns:  UNAVAILABLE
+Card padding:                           UNAVAILABLE
+Border radius:                          UNAVAILABLE
+Icon-to-feature mapping beyond what's
+  listed above (i.e. distinct glyph
+  per feature vs. shared play/mute icon
+  set): the extraction suggests the SAME
+  play/mute icon pair is reused across
+  all six cards, rather than unique
+  per-feature iconography — but exact
+  CSS grid mechanics are UNAVAILABLE.
+
+
+3. MEDIA ASSETS (confirmed, full CDN paths)
+-----------------------------------------------
+All hosted on cdn.prod.website-files.com/68872d15af29880764eac4aa/:
+  - 6a7b19f105c81804b0f59361_DFR_1_frame.avif
+  - 6a7a33adf1c340c52bc8d0da_LX-Release25-Capabilities-01-Motion_frame.avif
+  - 6a7a22723c3eacc0459ead1c_LX-Release25-Capabilities-02-Multishot_frame.avif
+  - 6a7a2272f8c58b0aa0c6f52f_LX-Release25-Capabilities-03-PromptAdherence_frame.avif
+  - 6a8bf9dc7eab4bd21b6b9d95_HDR-New_frame.avif
+  - 6a7a2272da766fb28cddb3e8_LX-Release25-Capabilities-07-BetterResults_frame.avif
+  - 6950e870b35f8760f5dfd7d4_mute-icon-1.svg
+  - 6950e8705274ffb6de125cc9_mute-icon.svg
+  - 6950e870934bb3527e4841a0_Play-icon.svg
+  - 6950e870b6c982850fda2cbc_mute-icon-2.svg
+File format note: hero/feature images use .avif (modern,
+compressed format) — consistent with a Webflow-hosted asset
+pipeline optimizing for load performance.
+
+
+4. RESPONSIVE BEHAVIOR
+--------------------------
+Multi-column -> single-column stacking breakpoint: UNAVAILABLE
+Column reflow order on mobile:                     UNAVAILABLE

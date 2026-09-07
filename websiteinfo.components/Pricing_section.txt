@@ -1,0 +1,37 @@
+=================================================================
+PRICING SECTION — ltx.io
+=================================================================
+
+IMPORTANT FINDING
+-------------------
+The homepage at https://ltx.io/?lid=5to5r15naktg does NOT contain
+a pricing table, tier cards, or plan comparison itself. It only
+links out to two separate pricing destinations:
+
+  - "API Pricing"       -> https://docs.ltx.io/pricing
+  - "LTX Studio Pricing" -> https://ltx.io/studio/pricing
+
+I attempted to fetch both of those pages directly to pull the real
+tier names, prices, and feature matrix, but my fetch tool restricts
+me to URLs that have already appeared in a prior search/fetch
+result verbatim, and a follow-up web search did not surface usable
+cached content for either page (search results returned unrelated
+"Studio"/pricing pages from other companies — Wix Studio, Proto.io,
+etc. — not Lightricks' own pricing page).
+
+RESULT: No tier titles, prices, feature matrices, badges, or CTA
+copy for this section can be confirmed from this session without
+fabrication. I have not filled in placeholder numbers.
+
+1. COPY & PLANS                UNAVAILABLE (see above)
+2. FEATURE MATRIX              UNAVAILABLE
+3. CARD ARCHITECTURE            UNAVAILABLE
+4. CTAs & CONVERSION            Only confirmed CTA copy on the
+   homepage related to pricing/sales is:
+     "Talk to Sales" -> /forms/ltx-contact-sales?kpi=licensing&placement=topmenu
+
+RECOMMENDED NEXT STEP
+------------------------
+Open https://docs.ltx.io/pricing and https://ltx.io/studio/pricing
+directly in a browser (or paste their content here) and I will
+structure the real tier data into this file.

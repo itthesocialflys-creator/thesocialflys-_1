@@ -1,0 +1,387 @@
+================================================================================
+WEBSITE REVERSE-ENGINEERING AUDIT
+Target URL: https://www.thesocialflys.com/
+Audit Date: 2026-08-27
+================================================================================
+
+METHODOLOGY NOTE (read first):
+This audit was produced by directly fetching and parsing the live pages of
+thesocialflys.com (Home, /about, /founding-vision, /privacy). All copy,
+links, image URLs, structure, and metadata below are pulled verbatim from
+the rendered DOM/markup. The fetch pipeline used sanitizes and strips
+inline <style> blocks, compiled CSS bundles, and JS source, so literal
+hex/RGB values, @font-face declarations, and named JS animation libraries
+are NOT present in the retrievable document source. Where a value could
+not be pulled from source, it is explicitly marked "[VISUAL OBSERVATION —
+not confirmed in source]" rather than invented as a fake extracted fact.
+
+================================================================================
+1. BRAND & IDENTITY
+================================================================================
+Brand Name: The Social Flys (styled in nav lockup as "THESOCIALFLYS")
+Tagline: "WE MAKE BRANDS FLY." (hero headline, stylized as "WE MAKE / BRANDS / FLY.")
+One-Liner / Value Proposition:
+  "Data-driven social media marketing, branding, and digital strategy that
+  turns your audience into a loyal community." (meta-description, site-wide)
+  Secondary framing line (About page): "We are a collective of seasoned
+  strategists, data-obsessed nerds, and visionary creatives. Welcome to
+  Mission Control."
+Brand Voice & Tone:
+  - Space/rocketry conceit used as the controlling metaphor throughout
+    (orbit, gravity, escape velocity, Mission Control, Ground Control,
+    thrusters, airlock, asteroid fields, colony).
+  - Confident, irreverent, anti-corporate-jargon; short punchy sentences
+    mixed with longer manifesto-style paragraphs.
+  - Pop-culture nod: "Ground Control to Major Tom…" (Bowie reference) and
+    "Elon Musk, who… You get to launch your brand right up there with the
+    stars."
+  - Results-obsessed language (ROAS, CPA, revenue) paired with creative/
+    emotional language ("art and science," "gravitational pull").
+  - Founder-story tone on /founding-vision is more sincere/plainspoken
+    than the hero copy — biography-driven, less metaphor-heavy.
+
+================================================================================
+2. ASSETS & METADATA
+================================================================================
+Logo:
+  - Primary logo file: https://www.thesocialflys.com/logo.svg
+    (vector, SVG format; reused identically in main nav, About, Founding
+    Vision, and footer — no separate dark/light variant file path found;
+    footer also renders a stacked wordmark "THE / SOCIAL / FLYS" as text
+    rather than an image, suggesting the SVG is likely a symbol-only mark
+    paired with text set in HTML/CSS rather than baked into the logo file).
+  - No separate "symbol-only" or alternate-format (PNG/WebP) logo path was
+    discoverable in the fetched markup.
+Favicon & Icons:
+  - Not present in the retrievable document metadata (no <link rel="icon">,
+    apple-touch-icon, or manifest.json reference surfaced in the fetch).
+    [Could not confirm sizes/formats from source.]
+Open Graph & SEO Metadata:
+  - title: "The Social Flys — Digital Growth Agency, Bengaluru" (Home)
+  - meta-description (Home): "Data-driven social media marketing,
+    branding, and digital strategy that turns your audience into a loyal
+    community."
+  - meta-keywords (site-wide, repeated on every page checked): "social
+    media marketing, digital agency, bengaluru, brand strategy, paid ads,
+    SEO"
+  - meta-viewport: "width=device-width, initial-scale=1"
+  - Page-specific titles/descriptions:
+    * /about — title: "About Us — The Social Flys"; description: "We are
+      a collective of seasoned strategists, data-obsessed nerds, and
+      visionary creatives. Welcome to Mission Control."
+    * /founding-vision — title: "Founding Vision — The Social Flys";
+      description: "The story behind The Social Flys — founded by
+      Rishabh Sinha on 19th September 2019 with a mission to help
+      businesses build a powerful digital identity."
+    * /privacy — title: "Privacy Policy — The Social Flys"; description:
+      "How The Social Flys collects, uses, and protects your personal
+      information."
+  - og:image / og:title / og:description / twitter:card tags: not exposed
+    in the fetched document head. [Not confirmed in source.]
+
+================================================================================
+3. DESIGN SYSTEM & TYPOGRAPHY
+================================================================================
+Primary & Secondary Colors:
+  [VISUAL OBSERVATION — not confirmed in source; no CSS/hex values were
+  retrievable via the fetch pipeline.] Rendered screenshots of this site
+  class of dark "space" agency site typically use a near-black background
+  with a single vivid accent (violet/blue or orange) for CTAs and
+  gradients; exact HEX/RGB/HSL tokens cannot be responsibly stated as
+  "extracted" without direct CSS access. Recommend inspecting the site
+  with browser DevTools (Elements > Computed Styles) to pull the true
+  custom-property/HEX values (commonly exposed as CSS variables like
+  --color-bg, --color-accent, --color-text on sites built this way).
+Typography Stack:
+  [VISUAL OBSERVATION — not confirmed in source.] Heading type in the
+  hero ("WE MAKE BRANDS FLY.") reads as a bold, tight-tracking geometric
+  sans-serif at large display size; body copy is a standard humanist
+  sans at smaller size/regular weight. No @font-face, Google Fonts link,
+  or font-family declaration was present in the retrievable markup, so
+  specific family names, weights, sizes, and line-height scale cannot be
+  confirmed from source.
+UI Patterns:
+  [VISUAL OBSERVATION — not confirmed in source.] Section rhythm follows
+  a repeating label > large H2 pattern ("What We Do," "Portfolio," "How
+  We Work," "Client Love," "Packages") consistent with generous vertical
+  spacing between sections. Numbered list treatment (01–09 on Privacy
+  Policy, 01–07 on Founding Vision, 01–06 on Services) suggests a
+  reusable "numbered card/step" component. Border radius, shadow tokens,
+  and exact spacing units could not be confirmed without CSS access.
+
+================================================================================
+4. NAVIGATION & HEADER
+================================================================================
+Navigation Menu Items (Home):
+  - Logo/wordmark (links to "#"/home): "The Social Flys THESOCIALFLYS"
+  - SERVICES → #services
+  - WORK → #work
+  - PROCESS → #process
+  - CLIENTS → #testimonials
+  - No visible dropdown/mega-menu hierarchy detected — flat single-level
+    in-page anchor nav.
+Sub-pages (About, Founding Vision, Privacy) replace the anchor nav with:
+  - Logo (links to "/")
+  - "← Back to Home" link
+Sticky/Fixed Behavior, glassmorphism, scroll-triggered height changes:
+  [Not confirmed — behavior is JS/CSS-driven and not observable from the
+  static fetched markup.]
+
+================================================================================
+5. HERO SECTION
+================================================================================
+Headlines & Sub-titles:
+  - H1: "WE MAKE BRANDS FLY." (rendered as stacked "WE MAKE / BRANDS /
+    FLY." per line breaks in source)
+  - Sub-headline: "Gravity is boring. We give your story escape
+    velocity."
+  - Supporting line: "All while building a Rocket of your own. Elon
+    Musk, who… You get to launch your brand right up there with the
+    stars."
+  - Marquee/ticker strip beneath hero (looping keyword band):
+    "SOCIAL MEDIA ✦ CONTENT CREATION ✦ BRAND STRATEGY ✦ PAID ADS ✦ SEO ✦
+    INFLUENCER MARKETING ✦ WEB DESIGN ✦ GROW TOGETHER ✦" (repeated
+    multiple times in source, confirming an infinite-scroll marquee
+    component).
+Core Visual Assets:
+  - No hero image/video/3D canvas element URL was present in the fetched
+    markup — hero appears to be typography + marquee only (or any visual
+    canvas is rendered client-side via JS/WebGL and not exposed in the
+    static document).
+Primary & Secondary CTAs:
+  - Primary: "VIEW OUR WORK" → #work (in-page scroll to portfolio)
+  - Secondary: "OUR SERVICES" → https://wa.me/916204574620?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20your%20services!
+    (opens WhatsApp chat with pre-filled message: "Hi, I'd like to know
+    more about your services!")
+
+================================================================================
+6. SHADERS, CANVAS & BACKGROUNDS
+================================================================================
+Canvas/WebGL Effects: Not present/confirmable in the static fetched
+  document. The "space/gravity" theming (rocket, orbit, galaxy language)
+  strongly implies a starfield, particle, or gradient-mesh background
+  effect is likely implemented client-side, but no shader code, canvas
+  element, or WebGL library reference appeared in source.
+Background Styles: Not confirmable from source (no inline style/CSS
+  captured). [VISUAL OBSERVATION only, if screenshot were reviewed: dark
+  "space" background would be typical of this copy style — cannot be
+  stated as confirmed fact.]
+
+================================================================================
+7. SCROLL INTERACTIONS & ANIMATIONS
+================================================================================
+Scroll Areas:
+  - Site is single-page (index) with in-page anchor navigation to
+    #services, #work, #process, #testimonials — implies smooth-scroll
+    behavior between named sections.
+  - Process section explicitly built as an interactive/explorable
+    module: "Click any node to explore the step. Four stages, one goal:
+    make your brand fly." — indicates a clickable node/stepper UI
+    (Discovery & Audit → Strategy & Blueprint → Create & Execute →
+    Optimise & Scale), likely with node-to-node transition animation.
+  - A "↑ Back to top" control is present in the footer on every page,
+    confirming scroll-to-top functionality.
+Motion & Transitions:
+  - The looping marquee/ticker under the hero (duplicated text blocks in
+    source) confirms a CSS/JS infinite-scroll marquee animation.
+  - Stat counters under "What We Do" render as "0+", "0Cr+", "0%" in
+    static source (e.g. "0+ Clients Served," "0Cr+ Revenue Generated,"
+    "0% Client Retention") — the literal "0" values strongly indicate
+    JS-driven count-up/odometer animations that populate real numbers
+    on scroll-into-view, with the static markup only capturing the
+    pre-animation zero state.
+  - Specific libraries (GSAP, Framer Motion, Lenis, etc.) could not be
+    confirmed — no script tags/bundle names were present in the fetched
+    document.
+
+================================================================================
+8. FEATURES & CAPABILITIES SECTION
+================================================================================
+Section Headers:
+  - Eyebrow: "What We Do"
+  - H2: "DIGITAL SERVICES THAT DELIVER"
+  - Intro copy: "From formulating your entire online presence to
+    ensuring everyone is trapped in your brand's gravitational pull.
+    This isn't just a checklist of tactics; it's our tactical toolkit
+    for digital dominance. Get ready to enter the solar system."
+Feature List & Copy (numbered 01–06, no icon names exposed in source):
+  01. Social Media Marketing — "Strategic campaigns across Instagram,
+      Facebook, LinkedIn & more. We grow your following and convert it
+      into real revenue."
+  02. Performance & Paid Ads — "Meta Ads, Google Ads, YouTube campaigns
+      optimised for maximum ROAS. Every rupee tracked, every result
+      reported."
+  03. Brand Strategy & Identity — "We craft brands that people
+      remember. From naming and positioning to visual identity that
+      stops the scroll."
+  04. Content Creation — "Reels, carousels, copywriting, photography &
+      video production. Content that gets shared, not scrolled past."
+  05. SEO & Web Design — "Fast, beautiful websites optimised to rank.
+      From WordPress to custom builds that convert visitors to
+      customers."
+  06. Influencer Marketing — "Curated influencer partnerships that
+      reach your ideal audience authentically. Nano to mega — we manage
+      it all."
+Visual Layout Structure:
+  - Numbered (01–06) card sequence, consistent with a grid layout (most
+    likely 3-column desktop / stacked mobile given six evenly-numbered
+    items) — exact CSS grid/bento structure not confirmable from
+    source.
+Stats strip directly below features:
+  - "0+ Clients Served"
+  - "0+ Campaigns Launched"
+  - "0Cr+ Revenue Generated"
+  - "0% Client Retention"
+  (see Section 7 — animated count-up values, zero is placeholder pre-
+  animation state, not final displayed numbers)
+
+================================================================================
+9. CARDS & COMPONENT ARCHITECTURE
+================================================================================
+Card Variants identified in source:
+  1. Service cards (numbered 01–06) — title + description, see Section 8.
+  2. Portfolio/work cards — category tag, client name, result stat, each
+     paired with an image:
+     - "Social Media + Paid Ads" — FreshBrew Co. — "340% ROAS in 3
+       months" — image: https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1280&h=720&fit=crop&q=80
+     - "Brand Identity + SEO" — TechNova India — "5× organic growth in
+       6 months" — image: https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1280&h=720&fit=crop&q=80
+     - "Influencer + Content" — Velvet Fashion — "2M+ impressions ·
+       18% engagement" — image: https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=1280&h=720&fit=crop&q=80
+     - Additional gallery images without paired copy (likely a
+       secondary masonry/grid row):
+       https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1280&h=720&fit=crop&q=80 (Growth metrics)
+       https://images.unsplash.com/photo-1542744095-291d1f67b221?w=1280&h=720&fit=crop&q=80 (Brand identity)
+       https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1280&h=720&fit=crop&q=80 (Agency work)
+       https://images.unsplash.com/photo-1557838923-2985c318be48?w=1280&h=720&fit=crop&q=80 (Content creation)
+  3. Process/stepper nodes — 4 clickable nodes (Discovery & Audit,
+     Strategy & Blueprint, Create & Execute, Optimise & Scale).
+  4. Testimonial cards — quote + circular initial-avatar + name + role
+     (see Section for full quotes below); avatar rendered as a single
+     capital-letter monogram (R, P, A, V) rather than a photo, per
+     source markup ("R / Rohit Sharma," "P / Priya Mehta," etc.).
+  5. Pricing/package table — 3-column comparison table with row-level
+     feature ticks (see Section 10).
+Component Specs (hover states, badges, micro-interactions):
+  - Not confirmable from static source (interaction states are CSS
+    :hover/JS driven and not present in the fetched DOM).
+  - One badge-like label confirmed in copy: "Most Popular" attached to
+    the "Growth" pricing tier.
+
+================================================================================
+10. PRICING SECTION
+================================================================================
+Section header: "Packages" (eyebrow) / "BUILT FOR YOUR GOALS" (H2)
+Intro line: "Every brand is unique. Our pricing is custom — built around
+  your brief, not a catalogue."
+Tiers & Plan Names:
+  1. Starter — subtitle "Small Brands" — price label: "CUSTOM"
+  2. Growth — subtitle "Most Popular" — price label: "CUSTOM"
+  3. Enterprise — subtitle "Agencies" — price label: "CUSTOM"
+Pricing Values & Billing Cycles:
+  - No numeric pricing or monthly/annual toggle exists — every tier is
+    labeled literally "CUSTOM," confirming a quote-based (no self-serve
+    checkout) pricing model.
+Feature Matrix (row = feature, columns = Starter / Growth / Enterprise):
+  - Social media management: 2 platforms / 4 platforms / All platforms
+  - Paid ads (Meta / Google): included across tiers (no differentiated
+    copy captured per-tier beyond presence)
+  - Content creation: 4 posts/mo / 12 posts/mo / Unlimited
+  - SEO optimisation: included (all tiers, per table)
+  - Influencer marketing: included (all tiers, per table)
+  - Brand strategy: included (all tiers, per table)
+  - Dedicated account manager: included (all tiers, per table)
+  - Monthly performance reports: included (all tiers, per table)
+  - Priority support: (blank for Starter) / "Business hrs" (Growth) /
+    "24 / 7" (Enterprise)
+CTA per Tier: "GET A QUOTE" (identical CTA on all three tiers) →
+  https://wa.me/916204574620?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20your%20services!
+
+================================================================================
+11. CALLS TO ACTION (CTAs) & CONVERSION POINTS
+================================================================================
+Primary CTA Copy & Placement:
+  - Hero: "VIEW OUR WORK" (#work) and "OUR SERVICES" (WhatsApp link)
+  - Bottom-of-page closing CTA section ("THE GALAXY IS CALLING" /
+    "But you can't build a colony on mediocrity."): "LAUNCH THE
+    CONVERSATION" → WhatsApp link (repeated identically at the bottom
+    of every page audited: Home, About, Founding Vision, Privacy).
+Secondary CTA Copy & Placement:
+  - "GET A QUOTE" ×3, once per pricing tier → same WhatsApp deep link.
+Form Inputs & Lead Capture:
+  - No on-site contact form, newsletter signup, or modal was found in
+    the fetched markup. All lead capture routes to a single external
+    channel: WhatsApp deep link
+    (https://wa.me/916204574620?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20your%20services!)
+    with a pre-filled message "Hi, I'd like to know more about your
+    services!" — this single link is reused verbatim across every CTA
+    on the site.
+  - Direct email contact also listed in footer: rishabh@thesocialflys.com
+
+================================================================================
+12. FOOTER & UTILITIES
+================================================================================
+Column Breakdown (identical across all pages audited):
+  - Logo lockup: logo.svg + stacked wordmark "THE / SOCIAL / FLYS"
+  - Services column: Social Media · Content Creation · Paid Ads · SEO &
+    Strategy (all anchor to #services)
+  - Company column: Our Work (#work) · Blog (/blog) · Process
+    (#process) · About Us (/about) · Founding Vision (/founding-vision)
+  - Contact column: WhatsApp Us (wa.me link) · rishabh@thesocialflys.com
+  - Follow Us column (social handles):
+    - Instagram: https://instagram.com/thesocialflys
+    - LinkedIn: https://www.linkedin.com/in/the-social-flys-681067401/
+    - Facebook: https://www.facebook.com/share/1Ft7toHm73/?mibextid=wwXIfr
+Copyright & Legal Lines:
+  - "© 2019 thesocialflys.com — All rights reserved." (note: copyright
+    year is fixed at founding year 2019, not the current year)
+  - Legal links: Privacy Policy (/privacy) · Terms of Service (/terms)
+  - Utility control: "↑ Back to top"
+Language / Currency Selectors: None found — single-language (English),
+  no currency selector present (consistent with the custom-quote pricing
+  model and INR-implicit market — pricing mentions "₹10L monthly revenue"
+  and "Every rupee tracked" in testimonial/copy, confirming India/INR
+  as the implicit market rather than a formal selector UI).
+
+================================================================================
+13. TECHNICAL STACK & ACCESSIBILITY (ENGINEERING NOTES)
+================================================================================
+Detected Stack:
+  - No build/framework fingerprints (e.g. Next.js data blobs, React root
+    div IDs, Webpack chunk names, Tailwind class strings) were exposed
+    in the fetched, sanitized document, so the frontend framework, CSS
+    tooling, animation package, and icon set CANNOT be confirmed from
+    source. Given the site's behavior (single-page anchor navigation,
+    animated counters, marquee, interactive process nodes, custom
+    routed sub-pages for /about, /founding-vision, /privacy, /terms,
+    /blog) it is consistent with a modern component framework (e.g.
+    React/Next.js or similar JS SPA/SSR setup) — this is an inference
+    from behavior, not a confirmed fact.
+  - Confirmed sub-routes discovered via internal links: /, /about,
+    /founding-vision, /privacy, /terms, /blog.
+Breakpoints:
+  [VISUAL OBSERVATION — not confirmed in source.] No media-query or
+  responsive CSS was retrievable. Cannot state literal mobile/tablet/
+  desktop pixel breakpoints without direct CSS/DevTools access.
+Accessibility Markers:
+  - No ARIA roles, aria-labels, skip-links, or explicit screen-reader-
+    only text were present in the fetched/sanitized markup.
+  - Image alt text WAS captured for portfolio images (e.g. "Data
+    analytics," "Social strategy," "Digital marketing," "Growth
+    metrics," "Brand identity," "Agency work," "Content creation"),
+    indicating at least baseline alt-text discipline on imagery.
+  - Logo image alt text: "The Social Flys" (used consistently wherever
+    the logo appears).
+  - Keyboard focus indicators, skip-to-content links, and other
+    interaction-level accessibility markers could not be confirmed from
+    the static fetch.
+
+================================================================================
+END OF AUDIT
+================================================================================
+Sources fetched directly for this report:
+  - https://www.thesocialflys.com/
+  - https://www.thesocialflys.com/about
+  - https://www.thesocialflys.com/founding-vision
+  - https://www.thesocialflys.com/privacy
+================================================================================

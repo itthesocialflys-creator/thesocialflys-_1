@@ -1,0 +1,90 @@
+=================================================================
+HERO SECTION — ltx.io
+Source: https://ltx.io/?lid=5to5r15naktg
+Extraction method: web_fetch (reader-mode text extraction)
+=================================================================
+
+NOTE ON DATA QUALITY
+---------------------
+Everything under COPY & HIERARCHY and CTAs below is real, verbatim
+content pulled from the live page response.
+
+Everything under LAYOUT & GRID SPECS and DESIGN TOKENS is NOT
+extractable via the tools available in this session — my fetch
+tool returns a text/reader-mode extraction of the page, not the
+raw DOM or computed CSS, and direct HTTP access to ltx.io from my
+sandbox is blocked (host_not_allowed). Rather than invent plausible
+numbers, those fields are explicitly marked UNAVAILABLE. Do not
+feed fabricated CSS values into a coding agent as if verified.
+
+
+1. COPY & HIERARCHY
+--------------------
+Eyebrow/Badge (top announcement bar):
+  "LTX 2.5 is Here・See What's Changed" -> links to /model/ltx-2-5
+
+H1 (headline):
+  "The world model the world builds on just got better"
+
+Subtext (value proposition, directly below H1):
+  "LTX-2.5 is here. Smarter. Faster. Sharper. Still open. Still yours. Still LTX."
+
+Secondary supporting line (appears further down, functions as
+mission statement under the hero, before the "New in LTX-2.5" module):
+  "We build open world models that give you full control, from
+  production-grade video to systems that understand and operate
+  in the physical world."
+
+Logo/partner strip (social proof row, appears twice/looped in the
+DOM — likely an auto-scrolling marquee, see ScrollAreas.txt):
+  ElevenLabs, fal, Frito-Lay, RunDiffusion, OpenArt, ComfyUI,
+  NVIDIA, Trapdoor, McCann, FutureBrand, FCB, Code and Theory,
+  CYLNDR, Clutch
+
+
+2. LAYOUT & GRID SPECS
+------------------------
+Desktop grid (columns, gutters, container max-width): UNAVAILABLE
+Tablet breakpoint behavior:                            UNAVAILABLE
+Mobile breakpoint behavior:                             UNAVAILABLE
+Section padding (top/bottom, px/rem):                    UNAVAILABLE
+Flexbox/Grid parameters (display, gap, align-items etc): UNAVAILABLE
+
+To obtain these: inspect computed styles on the hero `<section>`
+via browser devtools, or fetch the live-rendered DOM/stylesheet
+directly (blocked from this sandbox).
+
+
+3. DESIGN TOKENS
+------------------
+Typography (font-family, size, weight, line-height): UNAVAILABLE
+Text color (hex/rgb):                                 UNAVAILABLE
+Background treatment (gradient/video/canvas):         UNAVAILABLE — a
+  hero visual is present (see media asset below) but whether the
+  background itself is a WebGL canvas, video loop, or static image
+  cannot be determined from a text extraction. Cross-reference with
+  Shaders.txt.
+
+Known media asset in hero:
+  https://cdn.prod.website-files.com/68872d15af29880764eac4aa/6a7b3b8afaf0248da556a5dc_ltx-hero-DK2.avif
+  (labelled "LTX-2.3 Examples Video" in alt text — suggests a video
+  poster frame or AVIF-encoded looping clip, not a static hero photo)
+
+
+4. CTAs
+---------
+Primary CTA:
+  Label: "Download Open Weights"
+  Target: https://huggingface.co/Lightricks/LTX-2.5
+
+Secondary CTA:
+  Label: "Try Now"
+  Target: https://app.ltx.io/
+
+Header-level CTAs (persist above hero, likely in nav bar not hero
+itself — see navigation_menu.txt):
+  "Talk to Sales" -> /forms/ltx-contact-sales?kpi=licensing&placement=topmenu
+  "Try LTX" -> https://console.ltx.video/playground/
+  "Get API Key" -> https://console.ltx.video
+
+Layout positioning (stacked vs. inline, alignment): UNAVAILABLE

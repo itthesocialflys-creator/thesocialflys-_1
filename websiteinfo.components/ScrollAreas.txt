@@ -1,0 +1,57 @@
+=================================================================
+SCROLL AREAS / MOTION — ltx.io
+=================================================================
+
+WHAT CAN BE INFERRED FROM STRUCTURE ALONE
+----------------------------------------------
+The text extraction of the page cannot see scroll-triggered CSS,
+JS libraries, or Intersection Observer usage directly — none of
+that is present in a reader-mode text dump. However, two structural
+clues from the DOM ordering are worth flagging as hypotheses (NOT
+confirmed specs):
+
+1. Logo/partner marquee (hero section)
+   The 14 partner logos (ElevenLabs, fal, Frito-Lay, RunDiffusion,
+   OpenArt, ComfyUI, NVIDIA, Trapdoor, McCann, FutureBrand, FCB,
+   Code and Theory, CYLNDR, Clutch) appear THREE TIMES consecutively
+   in the extracted DOM order, back to back with no other content
+   between repetitions. This is a strong structural signature of an
+   infinite/looping marquee (the row is duplicated 2-3x in the DOM
+   so a CSS transform/JS scroll loop can wrap seamlessly). This is
+   an inference from repetition pattern, not a confirmed animation
+   spec.
+
+2. Numbered feature list (01-06 in "New in LTX-2.5")
+   Explicit numbering (01, 02, 03...) plus one feature revealed at
+   a time with accompanying video/image is consistent with a
+   scroll-linked or click-linked step interface, but whether it's
+   sticky-pinned, horizontally scrolling, or just a plain vertical
+   stack cannot be determined from text alone.
+
+3. Case studies section ("One foundation. Built to be put to work.")
+   Five case study entries (Markov Robotics, Reactor, ComfyUI, Fal,
+   Asteria), each with a "Watch the Full Video" link pointing to
+   bare "#" hrefs — confirms these open a JS-driven video
+   lightbox/modal rather than navigating, but not the animation
+   mechanics of how that modal enters/exits.
+
+CONFIRMED: UNAVAILABLE
+--------------------------
+- Scroll-triggered event definitions (which elements, thresholds)
+- Sticky-pinned section behavior
+- Horizontal scroll region implementation
+- Parallax transform values
+- Animation trigger points / keyframe percentages
+- Library fingerprint (GSAP, Framer Motion, Locomotive Scroll,
+  native Intersection Observer, Lenis, etc.) — none of these leave
+  a trace in extracted text; would require viewing page <script>
+  tags or network requests for library bundle names.
+- Any visual scroll-progress indicator (progress bar, step dots)
+
+RECOMMENDED NEXT STEP
+------------------------
+Open browser devtools -> Network tab -> filter by JS -> look for
+recognizable library bundle names (gsap.min.js, framer-motion,
+lenis, locomotive-scroll, etc.), and check the Elements panel for
+data-scroll / data-aos / class names hinting at the animation
+system in use. Paste that here and I'll fill this file in properly.
